@@ -1,0 +1,94 @@
+---
+title: "Boston dataset: Mixed Effects Models"
+author: "Tim Kelso"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include = FALSE)
+```
+
+```{r libraries}
+library(MASS)
+library(DataExplorer)
+library(tidyverse)
+library(GGally)
+```
+# Background 
+## Data source
+
+## Data information
+
+
+```{r get_data}
+# Get the Data
+data("Boston") 
+
+#make copy of raw data for reference
+Boston_orig <- Boston
+```
+
+```{r inspect_data}
+head(Boston)
+```
+
+``` {r initial_graphs_1}
+#compare first 5 pairs of variables
+Boston[,1:5] %>% 
+  plot()
+```
+``` {r initial_graphs_2}
+#compare second 5 pairs of variables
+Boston[,6:10] %>% 
+  plot()
+```
+
+``` {r initial_graphs_3}
+#compare last 4 pairs of variables
+Boston[,11:14] %>% 
+  plot()
+```
+
+# Analysis  
+##Initial thoughts  
+-   
+-   
+-   
+-   
+
+
+## Tables/Columns of potential interest:  
+-  
+-   
+-  
+-   
+  
+
+
+```{r data_transformation}
+
+```
+
+## Graphs  
+```{r graph1_, include = TRUE, message = FALSE}
+
+```
+
+
+```{r graph2_, include = TRUE, message = FALSE}
+
+```
+
+# Key Takeaways  
+-  
+-  
+-  
+- 
+
+# Possible next steps  
+-  
+-  
+-  
+-  
