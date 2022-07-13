@@ -1,0 +1,141 @@
+---
+title: "Indoor Personal Comfort Preferences: Mixed Effects Models"
+author: "Tim Kelso"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include = FALSE)
+```
+
+```{r libraries}
+library(DataExplorer)
+library(tidyverse)
+```
+# Background 
+## Data source  
+Found on kaggle.com (https://www.kaggle.com/datasets/claytonmiller/longitudinal-personal-thermal-comfort-preferences?select=enth_tabular_merged.csv) in a quick search for "longitudinal" data.  
+
+Github: https://github.com/buds-lab/longitudinal-personal-thermal-comfort
+
+Participants (Sex): 17 (10M, 7F)
+Age range: 21 to 27
+Responses/participant: 13 (min), 112(max)
+Duration: 4 weeks
+
+
+## Data information  
+*enth_surveys_renamed.csv*
+-user_id:	Unique identifier for each participant  
+-yob:	Year of birth  
+-sex:	Self-reported sex  
+-height:	Height in cm  
+-weight:	Weight in kg  
+-shoulder_circumference:	Shoulder circumference, in cm  
+-years_here:	"How long have you been in Singapore (in years)?"  
+-used_weather:	"Can you say that you are used to the weather in Singapore?"  
+-satisfaction_weather:	7-point Likert scale, "Can you say that you are satisfied -with the weather in this city (outdoor weather conditions)?"  
+-sweating: From 1 to 5, "Do you suffer from sweating in Singapore?"  
+-enjoy_ourdoor:	"Do you enjoy being outdoor in Singapore?"  
+-outdoor_hr_weekday:	"What is your estimation of your time (hours) spent outdoor (per -day) during the weekdays? (for example 2 hrs)"  
+-outdoor_hr_weekend:	"What is your estimation of your time (hours) spent outdoor (per -day) during the weekend? (for example 4 hrs)"  
+-hsps: Highly Sensitive Person Scale score  
+-swls: Satisfaction With Life Scale score  
+-extraversion: Extraversion trait score in a 7-point Likert scale  
+-agreeableness:	Agreeableness trait score in a 7-point Likert scale  
+-conscientiousness:	Consientiousness trait score in a 7-point Likert scale  
+-emotional_stability:	Emotional Stability trait score in a 7-point Likert scale  
+-openness_to_experiences:	Openness to New Experiences trait score in a 7-point Likert scale  
+
+*enth_tabular_merged*
+-space_id:	Unique location on campus
+-building_name:	Campus building name
+-air_vel:	Perceived air movement, 9 = "Not Perceived", 11 = "Perceived"
+-body_presence:	Wheter the user was wearing the smartwatch or not
+-change:	Change location, activity or clothing, 11 = "Yes Change", 10 = "No Change"
+-clothing:	Clothing, 8 = "very light", 9 = "Light", 10 = "Medium", 11 = "Heavy"
+-comfort:	Overall comfort, 10 = "Comfy", 9 = "Not Comfy"
+-heartrate:	Heart rate in bpm
+-indoor/outdoor:	Location, 9 = "Outdoor", 11 = "Indoor"
+-met:	Metabolic rate, 8 = "resting", 9 = "sitting", 10 = "standing", 11 = "exercising"
+-response_speed:	Time in seconds it took to complete the survey
+-resting_heartrate:	Resting heart rate in bpm
+-thermal:	Thermal preference, 9 = "Warmer", 10 = "No Change", 11 = "Cooler"
+-nb_temp:	Near body temperature, at the wrist level, in degree Celsius
+-skin_temp:	Skin temperature, at the wrist level, in degree Celsius
+-indoor_floor:	Building floor provided by the indoor bluetooth beacons
+-indoor_latitude:	Latitude provided by the indoor bluetooth beacons
+-indoor_longitude:	Longitude provided by the indoor bluetooth beacons
+-co2_indoor:	Indoor CO2 measurement by a fixed sensor in ppm
+-voc_indoor:	Indoor Volatile Organic Compound measurement by a fixed sensor in ppm
+-pm25_indoor:	Indoor Particulate Matter (PM2.5 - Fine Dust) measurement by a fixed sensor in µg/m3
+-noise_indoor:	Indoor Ambient noise levels measurement by a fixed sensor in dB
+-0.3um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 0.3 µm diameter
+-0.5um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 0.5 µm diameter
+-1.0um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 1.0 µm diameter
+-10.0um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 10.0 µm diameter
+-2.5um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 2.5 µm diameter
+-5.0um_count_outdoor:	Outdoor count concentration (particles/100ml) of all particles greater than 5.0 µm diameter
+-humidity_outdoor:	Outdoor relative humidity by a weather station in %
+-pm1.0_outdoor:	Outdoor estimated mass concentration PM1(ug/m3) for PM1.0
+-pm10.0_outdoor:	Outdoor estimated mass concentration PM1(ug/m3) for PM10.0
+-pm2.5_outdoor:	Outdoor estimated mass concentration PM1(ug/m3) for PM2.5
+-pressure_outdoor	:	Outdoor pressure by a weather station in millibars
+-temp_outdoor:	Outdoor temperature by a weather station in degree Celsius
+-user_id:	Unique identifier for each participant
+-temp_indoor:	Indoor temperature by a fixed sensor in degree Celsius
+-light_indoor:	Indoor light level by a fixed sensor in lux
+-humidity_indoor:	Indoor relative humidity by a fixed sensor in %
+
+##quick thoughts  
+- Does time and/or user Id predict comfort?  
+- What are the subjective predictors of comfort (if any)?  
+- What are the environmental predictors of comfort (if any)?  
+- Do more agreeable people report more comfort?  
+- Do more extraverted people report less comfort?  
+```{r get_data}
+# Get the Data
+survey_data <- read_csv("enth_surveys_renamed.csv")
+environ_data <- read_csv("enth_tabular_merged.csv")
+#make copy of raw data for reference
+survey_data_orig <- survey_data
+environ_data_orig <- environ_data
+```
+
+```{r inspect_survey_data}
+head(survey_data)
+```
+
+```{r inspect_environ_data}
+head(environ_data)
+```
+
+
+# Analysis  
+## Tables/Columns of potential interest:  
+
+
+
+## Graphs  
+```{r graph1_, include = TRUE, message = FALSE}
+
+```
+
+
+```{r graph2_, include = TRUE, message = FALSE}
+
+```
+
+# Key Takeaways  
+-  
+-  
+-  
+- 
+
+# Possible next steps  
+-  
+-  
+-  
+-  
