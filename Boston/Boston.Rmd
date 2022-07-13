@@ -1,5 +1,5 @@
 ---
-title: "Boston dataset: Mixed Effects Models"
+title: "Boston dataset: Linear Regression"
 author: "Tim Kelso"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: github_document
@@ -14,13 +14,25 @@ knitr::opts_chunk$set(echo = FALSE, include = FALSE)
 library(MASS)
 library(DataExplorer)
 library(tidyverse)
-library(GGally)
 ```
 # Background 
 ## Data source
 
 ## Data information
-
+CRIM - per capita crime rate by town
+ZN - proportion of residential land zoned for lots over 25,000 sq.ft.
+INDUS - proportion of non-retail business acres per town.
+CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)
+NOX - nitric oxides concentration (parts per 10 million)
+RM - average number of rooms per dwelling
+AGE - proportion of owner-occupied units built prior to 1940
+DIS - weighted distances to five Boston employment centres
+RAD - index of accessibility to radial highways
+TAX - full-value property-tax rate per $10,000
+PTRATIO - pupil-teacher ratio by town
+B - 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+LSTAT - % lower status of the population
+MEDV - Median value of owner-occupied homes in $1000's
 
 ```{r get_data}
 # Get the Data
@@ -33,44 +45,55 @@ Boston_orig <- Boston
 ```{r inspect_data}
 head(Boston)
 ```
-
-``` {r initial_graphs_1}
-#compare first 5 pairs of variables
-Boston[,1:5] %>% 
-  plot()
-```
-``` {r initial_graphs_2}
-#compare second 5 pairs of variables
-Boston[,6:10] %>% 
-  plot()
-```
-
-``` {r initial_graphs_3}
-#compare last 4 pairs of variables
-Boston[,11:14] %>% 
-  plot()
-```
-
 # Analysis  
-##Initial thoughts  
--   
--   
--   
--   
-
-
 ## Tables/Columns of potential interest:  
--  
--   
--  
--   
-  
+- crim (per capita crime rate) vs dis (weighted distances to employment centres)  
+- age (proportion of units built before 1940) vs dis (weighted distances to employment centres)    
+- medv (Median value of owner-occupied homes in $1000's) vs dis (weighted distances to employment centres)  
 
-
-```{r data_transformation}
-
+## Is crime rate higher around Boston's employment centres?  
+``` {r graph_crim_dis}
+#compare first 5 pairs of variables
+Boston %>% 
+  ggplot(aes(x = dis, y = crim)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()
 ```
+- There appears to be a relationship between crim and dis, however it is not linear
+- Try a log transformation of both variables  
 
+``` {r graph_logcrim_logdis}
+#compare first 5 pairs of variables
+Boston %>% 
+  ggplot(aes(x = log(dis), y = log(crim))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+- Log transformation of both variables appears to result in a linear relationship  
+- Will now test this   
+
+
+## Age of units vs distance to employment centres  
+- Would one expect older homes closer to employment centres? In other words, would urban spread originate from employment centres?
+``` {r graph_age_dis}
+#compare first 5 pairs of variables
+Boston %>% 
+  ggplot(aes(x = dis, y = age)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+- There could be a linear relationship between dis and age, however it appears that the variance around the mean gets larger as dis increases
+
+``` {r graph_rm_medv}
+#compare first 5 pairs of variables
+Boston %>% 
+  ggplot(aes(x = medv, y = rm)) +
+  geom_point() +
+  theme_minimal()
+```
 ## Graphs  
 ```{r graph1_, include = TRUE, message = FALSE}
 
