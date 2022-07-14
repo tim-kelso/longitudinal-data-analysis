@@ -95,6 +95,8 @@ Duration: 4 weeks
 - What are the environmental predictors of comfort (if any)?  
 - Do more agreeable people report more comfort?  
 - Do more extraverted people report less comfort?  
+
+
 ```{r get_data}
 # Get the Data
 survey_data <- read_csv("enth_surveys_renamed.csv")
@@ -120,9 +122,13 @@ head(environ_data)
 
 ## Graphs  
 ```{r graph1_, include = TRUE, message = FALSE}
-
+environ_data %>% 
+  ggplot(aes(x = time, y = comfort)) +
+  geom_count()
 ```
 
+#Predicting comfort as a function of time and and participant
+Comfort is binary (10 = "Comfy", 9 = "Not Comfy") so will need to use logistic regression
 
 ```{r graph2_, include = TRUE, message = FALSE}
 
