@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = FALSE, include = FALSE)
 
 ```{r libraries}
 library(DataExplorer)
+library(lme4)
+library(nlme)
 library(tidyverse)
 ```
 # Background 
@@ -121,7 +123,7 @@ head(environ_data)
 
 
 ## Graphs  
-```{r graph1_, include = TRUE, message = FALSE}
+```{r graph1_time_vs_comfort, include = TRUE, message = FALSE}
 environ_data %>% 
   ggplot(aes(x = time, y = comfort)) +
   geom_count()
@@ -129,6 +131,19 @@ environ_data %>%
 
 #Predicting comfort as a function of time and and participant
 Comfort is binary (10 = "Comfy", 9 = "Not Comfy") so will need to use logistic regression
+
+```{r analysis1_time_vs_comfort}
+fm1 <- environ_data %>% 
+  mutate(comfort = case_when(
+    comfort == 9 ~ 0,
+    comfort == 10 ~ 1
+  )) %>% 
+  glmer(comfort ~ time + (1 | user_id),
+            data = .,
+            family = binomial)
+summary(fm1)
+
+```
 
 ```{r graph2_, include = TRUE, message = FALSE}
 
